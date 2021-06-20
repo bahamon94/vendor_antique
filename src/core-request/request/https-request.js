@@ -1,10 +1,14 @@
+import { api } from 'boot/axios'
+
+
 export default class HttpRequest {
     constructor () {
 
     }
     list (endpoint) {
         return new Promise((resolve, reject) => {
-            window.$q.$axios.get(endpoint).then(response => {
+          console.log(api)
+            api.get(endpoint).then(response => {
                 resolve(response)
             }).catch(error => {
                 reject(error)
@@ -14,7 +18,7 @@ export default class HttpRequest {
     }
     create (endpoint, data) {
         return new Promise((resolve, reject) => {
-            window.$q.$axios.post(endpoint, data).then(response => {
+            api.$axios.post(endpoint, data).then(response => {
                 resolve(response)
             }).catch(error => {
                 reject(error)
@@ -24,7 +28,7 @@ export default class HttpRequest {
     }
     update (endpoint, data) {
         return new Promise((resolve, reject) => {
-            window.$q.$axios.put(endpoint, data).then(response => {
+            api.$axios.put(endpoint, data).then(response => {
                 resolve(response)
             }).catch(error => {
                 reject(error)
@@ -34,7 +38,7 @@ export default class HttpRequest {
     }
     delete (endpoint, data) {
         return new Promise((resolve, reject) => {
-            window.$q.$axios.delete(endpoint, data).then(response => {
+            api.$axios.delete(endpoint, data).then(response => {
                 resolve(response)
             }).catch(error => {
                 reject(error)
