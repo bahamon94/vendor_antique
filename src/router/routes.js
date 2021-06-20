@@ -11,6 +11,17 @@ const routes = [
       {path: 'items/:item', component: () => import('pages/_item.vue')}
     ]
   },
+  {
+    path: '/add',
+    redirect: 'items',
+    component: () => import('layouts/MainLayout.vue'),
+    meta: {
+      isAdmin: true
+    },
+    children: [
+      {path: '', component: () => import('pages/addItems/addItems.vue')}
+    ]
+  },
 
   {
     path: '/',

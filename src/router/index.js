@@ -28,8 +28,9 @@ export default function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach((to , from , next) => {
-    if (to.matched.some(record => record.meta.auth)){
-      if (LocalStorage.getItem('dataUser') === null || LocalStorage.getItem('dataUser') === undefined){
+
+    if (to.matched.some(record => record.meta.auth ||record.meta.isAdmin )){
+      if (LocalStorage.getItem('dataUser')=== null || LocalStorage.getItem('dataUser') === undefined){
         next({
           path: '/auth/login'
         })
@@ -40,11 +41,28 @@ export default function (/* { store, ssrContext } */) {
           actions: [{icon:'close', color: 'white'}]
         })
       } else {
-        next()
+        if (to.matched.some(record => record.meta.isAdmin)){
+          if (LocalStorage.getItem('dataUser')[0].id === 1){
+            next()
+          } else {
+            next({ path: "/items" })
+            Notify.create({
+              icon: 'error',
+              color: 'negative',
+              message: 'User not have permission to module',
+              actions: [{icon:'close', color: 'white'}],
+              position: 'top-right'
+            })
+          }
+        } else {
+          next()
+        }
       }
     } else {
       next()
     }
+
+
   })
 
 

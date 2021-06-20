@@ -22,7 +22,7 @@
             clickable
             v-ripple
             :active="link === 'items'"
-            @click="link = 'items'"
+            @click="changeRoute('items')"
           >
             <q-item-section avatar>
               <q-icon name="category"/>
@@ -34,11 +34,10 @@
           </q-item>
 
           <q-item
-            v-show="user[0].id === 1"
             clickable
             v-ripple
             :active="link === 'add'"
-            @click="link = 'add'"
+            @click="changeRoute('add')"
           >
             <q-item-section avatar>
               <q-icon name="add_circle"/>
@@ -76,17 +75,28 @@ export default {
     return {
       left: false,
       link: 'items',
-      user: []
     }
   },
-
   mounted() {
-    this.user = this.$q.localStorage.getItem('dataUser')
+    this.link = this.$route.path.split('/')[1]
   },
   methods: {
     logOut() {
       this.$q.localStorage.remove('dataUser')
       this.$router.push('/auth/login')
+    },
+    changeRoute(route) {
+      let cases = {
+        'items': () => {
+          this.$router.push({path: '/items'})
+          this.link = route
+        },
+        'add': () => {
+          this.$router.push({path: '/add'})
+          this.link = route
+        }
+      }
+        cases[route]()
 
     }
   }
