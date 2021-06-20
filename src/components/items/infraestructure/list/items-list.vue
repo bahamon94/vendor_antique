@@ -27,7 +27,7 @@
 
       <q-card-actions>
         <q-btn flat round icon="fact_check" />
-        <q-btn flat color="dark">
+        <q-btn flat color="dark" @click="viewItem(antique)">
           put in a tender
         </q-btn>
       </q-card-actions>

@@ -1,7 +1,10 @@
 import ItemsDomain from '../domain/items.domain.js'
+import GenericApp from "../../../core-request/application/generic.app";
 
-export default class ItemsApplication {
-  constructor(data) {
+export default class ItemsApplication extends GenericApp{
+  genericDomainClass = ItemsDomain
+  constructor(data = null) {
+    super()
     this.data = data
   }
 
@@ -20,8 +23,9 @@ export default class ItemsApplication {
     return await instance.list()
   }
 
-  /*async retrieve (id) {
-    let instance = new CategorieDomain()
-    return instance.retrieve(id)
-  }*/
+  async retrieve(id) {
+    return super.retrieve(id);
+  }
+
+
 }

@@ -1,26 +1,69 @@
 <template>
-  <q-layout view="hHh lpR fff">
+  <q-layout view="hHh LpR fFf">
 
     <q-header elevated>
-      <q-toolbar class="glossy">
-        <q-btn dense flat round icon="menu" @click="left = !left" />
+      <q-toolbar>
+        <q-btn dense flat round icon="menu" @click="left = !left"/>
         <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"/>
         </q-avatar>
 
         <q-toolbar-title>Vendors antique</q-toolbar-title>
 
-        <q-btn flat round dense icon="exit_to_app" />
+        <q-btn flat round dense icon="exit_to_app" @click="logOut"/>
       </q-toolbar>
     </q-header>
 
 
     <q-drawer show-if-above v-model="left" side="left" bordered>
-      <!-- drawer content -->
+      <q-scroll-area class="fit">
+        <q-list padding>
+          <q-item
+            clickable
+            v-ripple
+            :active="link === 'items'"
+            @click="link = 'items'"
+          >
+            <q-item-section avatar>
+              <q-icon name="category"/>
+            </q-item-section>
+
+            <q-item-section>
+              Items
+            </q-item-section>
+          </q-item>
+
+          <q-item
+            v-show="user[0].id === 1"
+            clickable
+            v-ripple
+            :active="link === 'add'"
+            @click="link = 'add'"
+          >
+            <q-item-section avatar>
+              <q-icon name="add_circle"/>
+            </q-item-section>
+
+            <q-item-section>
+              Add new item
+            </q-item-section>
+          </q-item>
+
+          <q-item
+            clickable
+            v-ripple
+          >
+
+          </q-item>
+        </q-list>
+      </q-scroll-area>
+
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <q-page padding>
+        <router-view/>
+      </q-page>
     </q-page-container>
 
   </q-layout>
@@ -28,10 +71,26 @@
 
 <script>
 export default {
-  data () {
+  name: 'Main-Layout',
+  data() {
     return {
-      left: false
+      left: false,
+      link: 'items',
+      user: []
+    }
+  },
+
+  mounted() {
+    this.user = this.$q.localStorage.getItem('dataUser')
+  },
+  methods: {
+    logOut() {
+      this.$q.localStorage.remove('dataUser')
+      this.$router.push('/auth/login')
+
     }
   }
+
+
 }
 </script>
