@@ -6,8 +6,8 @@ export default class ItemsDomain extends GenericDomain {
     super()
     this.dataForm = dataForm
   }
- /* async retrieve(id) {
-    this.api = this.retrieve_api
-    return super.retrieve(id);
-  }*/
+  /* async retrieve(id) {
+     this.api = this.retrieve_api
+     return super.retrieve(id);
+   }*/
 }

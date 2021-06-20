@@ -1,26 +1,22 @@
 <template>
-  <div class="q-pa-lg row items-start q-gutter-lg">
+  <div v-scroll="scrolled" class="q-pa-lg row items-start q-gutter-lg">
+
     <q-card
-      v-for="item in 10" :key="item"
-      class="my-card">
-      <q-img src="https://cdn.quasar.dev/img/chicken-salad.jpg" >
+      v-for="antique in itemsList" :key="antique.id"
+      class="my-card"
+      style="max-height: 20%"
+    >
+      <q-img :src="antique.thumbnailUrl" >
         <div class="absolute-bottom text-h6">
-          Title
+          {{ antique.title }}
         </div>
       </q-img>
       <q-card-section>
-<!--        <q-btn
-          fab
-          color="primary"
-          icon="place"
-          class="absolute"
-          style="top: 0; right: 12px; transform: translateY(-50%);"
-        />-->
       </q-card-section>
 
       <q-card-section class="q-pt-none">
         <div class="text-subtitle1">
-          $・Italian, Cafe
+           Description
         </div>
         <div class="text-caption text-grey">
           Small plates, salads & sandwiches in an intimate setting.
@@ -30,9 +26,9 @@
       <q-separator />
 
       <q-card-actions>
-        <q-btn flat round icon="event" />
-        <q-btn flat color="primary">
-          Reserve
+        <q-btn flat round icon="fact_check" />
+        <q-btn flat color="dark">
+          put in a tender
         </q-btn>
       </q-card-actions>
     </q-card>
